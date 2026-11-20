@@ -32,7 +32,6 @@ export default function GallerySection() {
 
   const galleryItems = gallery.items.map((item, index) => ({
     image: galleryImages[index % galleryImages.length],
-    // text: item.title, // Commented out as requested - titles hidden under cards
     description: item.description,
     alt: item.alt,
   }));
@@ -72,10 +71,8 @@ export default function GallerySection() {
       className="relative w-full h-[320vh] selection:bg-white selection:text-[#141212]"
       style={{ backgroundColor: colors.primaryBg }}
     >
-      {/* Viewport Pinned Sticky Container */}
-      <div className="sticky top-0 w-full h-screen flex flex-col justify-start pt-6 sm:pt-8 pb-4 overflow-hidden z-20">
-        {/* Section Header */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 text-center shrink-0 mb-1 sm:mb-2">
+<div className="sticky top-0 w-full h-screen flex flex-col justify-start pt-6 sm:pt-8 pb-4 overflow-hidden z-20">
+<div className="max-w-[1440px] mx-auto px-6 sm:px-10 text-center shrink-0 mb-1 sm:mb-2">
           <div className="inline-flex items-center space-x-3 mb-2 justify-center">
             <span className="w-8 h-[1px] bg-white/40" />
             <span
@@ -101,9 +98,7 @@ export default function GallerySection() {
             {gallery.subHeading}
           </p>
         </div>
-
-        {/* WebGL2 Circular Gallery Component occupying maximum space */}
-        <div className="relative w-full flex-1 min-h-0">
+<div className="relative w-full flex-1 min-h-0">
           <CircularGallery
             items={galleryItems}
             externalProgress={progress}

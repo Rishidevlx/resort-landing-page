@@ -9,7 +9,6 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PHONE_FIRST_DIGIT_REGEX = /^[6-9]/;
 const PHONE_STRICT_10_DIGIT_REGEX = /^[6-9]\d{9}$/;
 
-
 export function formatPhoneNumber(value = "") {
   return value.replace(/\D/g, "").slice(0, VALIDATION_LIMITS.PHONE_DIGITS);
 }

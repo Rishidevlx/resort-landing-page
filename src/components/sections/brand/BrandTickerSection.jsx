@@ -12,7 +12,7 @@ export default function BrandTickerSection() {
 
   return (
     <section
-      className="w-full py-16 sm:py-24 border-t border-white/10 overflow-hidden select-none"
+      className="w-full py-16 sm:py-24 overflow-hidden select-none"
       style={{ backgroundColor: colors.primaryBg }}
     >
       <ScrollVelocity

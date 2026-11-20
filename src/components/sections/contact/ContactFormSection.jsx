@@ -75,19 +75,13 @@ export default function ContactFormSection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Mark all fields as touched
     setTouched({ name: true, email: true, phone: true, message: true });
-
-    // Validate using external validation service
     const { errors: newErrors, isValid } = validateContactForm(formData);
     setErrors(newErrors);
 
     if (!isValid) return;
 
     setIsSubmitting(true);
-
-    // Simulate API submission
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -107,8 +101,7 @@ export default function ContactFormSection() {
       className="relative w-full bg-white text-[#141212] overflow-hidden"
       style={{ fontFamily: fonts.body }}
     >
-      {/* Subtle Feather Transition without heavy bottom dark shadow */}
-      <div className="relative w-full h-14 sm:h-20 -mt-px pointer-events-none overflow-hidden">
+<div className="relative w-full h-14 sm:h-20 -mt-px pointer-events-none overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
@@ -117,11 +110,8 @@ export default function ContactFormSection() {
           }}
         />
       </div>
-
-      {/* Main Content Container with Scroll Reveal */}
-      <div className="max-w-3xl mx-auto px-6 sm:px-10 pt-8 sm:pt-14 pb-10 sm:pb-14">
-        {/* Title Scroll Reveal */}
-        <motion.div
+<div className="max-w-3xl mx-auto px-6 sm:px-10 pt-8 sm:pt-14 pb-10 sm:pb-14">
+<motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
@@ -141,9 +131,7 @@ export default function ContactFormSection() {
             CURATED RETREATS & BESPOKE SANCTUARY EXPERIENCES
           </p>
         </motion.div>
-
-        {/* Minimalist Transparent Form with Scroll Reveal */}
-        {isSubmitted ? (
+{isSubmitted ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -192,10 +180,8 @@ export default function ContactFormSection() {
             className="space-y-9 sm:space-y-11"
             noValidate
           >
-            {/* Row 1: Name and Email in 2 columns */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-              {/* Name */}
-              <div className="group relative">
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+<div className="group relative">
                 <label
                   htmlFor="contact-name"
                   className="block text-[11px] sm:text-xs uppercase tracking-[0.22em] text-black/50 font-medium mb-1.5 group-focus-within:text-[#141212] transition-colors"
@@ -224,9 +210,7 @@ export default function ContactFormSection() {
                   </p>
                 )}
               </div>
-
-              {/* Email */}
-              <div className="group relative">
+<div className="group relative">
                 <label
                   htmlFor="contact-email"
                   className="block text-[11px] sm:text-xs uppercase tracking-[0.22em] text-black/50 font-medium mb-1.5 group-focus-within:text-[#141212] transition-colors"
@@ -256,9 +240,7 @@ export default function ContactFormSection() {
                 )}
               </div>
             </div>
-
-            {/* Row 2: Contact Number (Single Line Full Width) */}
-            <div className="group relative">
+<div className="group relative">
               <label
                 htmlFor="contact-phone"
                 className="block text-[11px] sm:text-xs uppercase tracking-[0.22em] text-black/50 font-medium mb-1.5 group-focus-within:text-[#141212] transition-colors"
@@ -286,9 +268,7 @@ export default function ContactFormSection() {
                 </p>
               )}
             </div>
-
-            {/* Row 3: Query / Message (Tall Textarea for 4+ lines) */}
-            <div className="group relative">
+<div className="group relative">
               <label
                 htmlFor="contact-message"
                 className="block text-[11px] sm:text-xs uppercase tracking-[0.22em] text-black/50 font-medium mb-1.5 group-focus-within:text-[#141212] transition-colors"
@@ -317,9 +297,7 @@ export default function ContactFormSection() {
                 </p>
               )}
             </div>
-
-            {/* Row 4: Send Enquiry Button using Button.jsx with variant="outline-dark" */}
-            <div className="pt-6 sm:pt-8 flex justify-center">
+<div className="pt-6 sm:pt-8 flex justify-center">
               <Button
                 type="submit"
                 variant="outline-dark"
@@ -332,9 +310,7 @@ export default function ContactFormSection() {
           </motion.form>
         )}
       </div>
-
-      {/* Resort Skyline Silhouette touching the top of the footer */}
-      <div className="relative w-full overflow-hidden leading-none -mb-px">
+<div className="relative w-full overflow-hidden leading-none -mb-px">
         <img
           src={footerAboveImg}
           alt="Riha Palace Sanctuary Skyline"

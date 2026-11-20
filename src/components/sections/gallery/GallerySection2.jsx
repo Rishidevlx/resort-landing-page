@@ -37,8 +37,7 @@ export default function GallerySection2() {
       className="relative w-full py-24 sm:py-32 selection:bg-white selection:text-[#141212] overflow-hidden"
       style={{ backgroundColor: colors.primaryBg }}
     >
-      {/* Section Header */}
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 mb-12 sm:mb-16 text-center">
+<div className="max-w-[1440px] mx-auto px-6 sm:px-10 mb-12 sm:mb-16 text-center">
         <div className="inline-flex items-center space-x-3 mb-3 justify-center">
           <span className="w-8 h-[1px] bg-white/40" />
           <span
@@ -64,9 +63,7 @@ export default function GallerySection2() {
           AN ENDLESS 3D PERSPECTIVE OF SANCTUARY LIFE
         </p>
       </div>
-
-      {/* React Bits Drift Wall 3D Perspective Canvas */}
-      <div className="relative w-full h-[580px] sm:h-[660px] lg:h-[720px]">
+<div className="relative w-full h-[580px] sm:h-[660px] lg:h-[720px]">
         <DriftWall
           items={driftItems}
           columns={5}

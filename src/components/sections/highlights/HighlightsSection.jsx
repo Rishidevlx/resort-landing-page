@@ -13,23 +13,15 @@ export default function HighlightsSection() {
   const { highlights, fonts } = themeConfig;
   const cards = highlights.cards;
   const totalCards = cards.length;
-
-  // Tripled cards for smooth infinite wrapping
   const allCards = [...cards, ...cards, ...cards];
   const allImages = [...CARD_IMAGES, ...CARD_IMAGES, ...CARD_IMAGES];
-
-  // Middle set start (index 4)
   const [virtualIndex, setVirtualIndex] = useState(totalCards);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
-
-  // Dragging state
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
   const containerRef = useRef(null);
-
-  // Compact card width matching Caladan layout
   const [cardWidth, setCardWidth] = useState(580);
   const gap = 28;
 
@@ -51,8 +43,6 @@ export default function HighlightsSection() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // 2s Autoplay infinite loop
   useEffect(() => {
     if (isPaused || isDragging) return;
 
@@ -63,8 +53,6 @@ export default function HighlightsSection() {
 
     return () => clearInterval(timer);
   }, [isPaused, isDragging, highlights.autoplayInterval]);
-
-  // Seamless infinite wrap
   const handleTransitionEnd = () => {
     if (virtualIndex >= totalCards * 2) {
       setIsTransitioning(false);
@@ -83,8 +71,6 @@ export default function HighlightsSection() {
       return () => cancelAnimationFrame(id);
     }
   }, [isTransitioning]);
-
-  // Pointer Drag Handlers
   const handlePointerDown = (e) => {
     setIsDragging(true);
     dragStartX.current = e.clientX;
@@ -129,8 +115,7 @@ export default function HighlightsSection() {
       }}
       className="relative w-full py-24 sm:py-28 bg-white overflow-hidden select-none cursor-grab active:cursor-grabbing"
     >
-      {/* Header Container matching About section font styling */}
-      <div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-6 mb-12 sm:mb-16">
+<div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-6 mb-12 sm:mb-16">
         <div className="inline-flex items-center space-x-3 mb-4">
           <span className="w-8 h-[1px] bg-[#141212]/30" />
           <span
@@ -156,13 +141,9 @@ export default function HighlightsSection() {
           {highlights.subHeading}
         </p>
       </div>
-
-      {/* Subtle edge fades (cards stay clearly recognizable) */}
-      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-r from-white via-white/40 to-transparent" />
+<div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-r from-white via-white/40 to-transparent" />
       <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-l from-white via-white/40 to-transparent" />
-
-      {/* Carousel Track */}
-      <div
+<div
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -193,9 +174,7 @@ export default function HighlightsSection() {
           ))}
         </div>
       </div>
-
-      {/* Bottom Luxury Slide Dots Indicator */}
-      <div className="mt-10 sm:mt-12 flex justify-center items-center space-x-2.5 z-30 relative">
+<div className="mt-10 sm:mt-12 flex justify-center items-center space-x-2.5 z-30 relative">
         {cards.map((_, idx) => (
           <button
             key={idx}

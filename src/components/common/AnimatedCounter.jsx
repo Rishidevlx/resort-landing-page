@@ -11,7 +11,6 @@ export default function AnimatedCounter({
   const prevTrigger = useRef(false);
 
   useEffect(() => {
-    // Animate when trigger turns true
     if (trigger && !prevTrigger.current) {
       prevTrigger.current = true;
       let startTime = null;
@@ -20,8 +19,6 @@ export default function AnimatedCounter({
         if (!startTime) startTime = timestamp;
         const elapsed = timestamp - startTime;
         const progress = Math.min(elapsed / duration, 1);
-
-        // Ease out quad: f(t) = t * (2 - t)
         const ease = progress * (2 - progress);
         setCount(Math.floor(ease * target));
 
@@ -34,7 +31,6 @@ export default function AnimatedCounter({
 
       requestAnimationFrame(animate);
     } else if (!trigger && prevTrigger.current) {
-      // Reset when scrolled back up
       prevTrigger.current = false;
       setCount(0);
     }

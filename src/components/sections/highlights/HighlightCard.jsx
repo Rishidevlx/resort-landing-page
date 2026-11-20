@@ -12,16 +12,13 @@ export default function HighlightCard({ card, image, isActive }) {
           : "scale-[0.9] opacity-75 blur-[2.5px]"
       }`}
     >
-      {/* Background Image */}
-      <img
+<img
         src={image}
         alt={card.title}
         draggable={false}
         className="w-full h-full object-cover object-center transform transition-transform duration-1000 scale-[1.03]"
       />
-
-      {/* Top Left Tag Badge */}
-      <div className="absolute top-5 left-5 z-10">
+<div className="absolute top-5 left-5 z-10">
         <span
           className="inline-block px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/25 text-white text-[10px] tracking-[0.25em] font-medium uppercase"
           style={{ fontFamily: fonts.subHeading }}
@@ -29,28 +26,20 @@ export default function HighlightCard({ card, image, isActive }) {
           {card.tag}
         </span>
       </div>
-
-      {/* Bottom Gradient Overlay for text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-
-      {/* Subtle light misty wash on side cards (not overpowering) */}
-      <div
+<div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+<div
         className={`absolute inset-0 bg-white/15 transition-opacity duration-700 pointer-events-none z-20 ${
           isActive ? "opacity-0" : "opacity-100"
         }`}
       />
-
-      {/* Bottom Content: Title + 2 Lines Description */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10 flex flex-col items-start text-left">
+<div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10 flex flex-col items-start text-left">
         <h3
           className="text-2xl sm:text-3xl md:text-[32px] text-white font-normal uppercase tracking-[0.03em] drop-shadow-md leading-tight"
           style={{ fontFamily: fonts.heading }}
         >
           {card.title}
         </h3>
-
-        {/* 2-line evocative description */}
-        <p
+<p
           className="mt-2.5 text-xs sm:text-[13px] text-white/90 font-normal leading-relaxed max-w-lg line-clamp-2 drop-shadow"
           style={{ fontFamily: fonts.body }}
         >

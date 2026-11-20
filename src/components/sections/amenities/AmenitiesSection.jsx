@@ -21,8 +21,7 @@ export default function AmenitiesSection() {
       style={{ backgroundColor: colors.primaryBg }}
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 flex flex-col lg:flex-row gap-12 lg:gap-20 xl:gap-28 items-start">
-        {/* Left Column: Permanently Locked in Vertical Center (Doesn't scroll up from top) */}
-        <div className="w-full lg:w-4/12 lg:sticky lg:top-0 lg:h-screen self-start flex flex-col justify-center items-start text-left z-20 py-8 shrink-0">
+<div className="w-full lg:w-4/12 lg:sticky lg:top-0 lg:h-screen self-start flex flex-col justify-center items-start text-left z-20 py-8 shrink-0">
           <div className="inline-flex items-center space-x-3 mb-4">
             <span className="w-8 h-[1px] bg-white/40" />
             <span
@@ -40,9 +39,7 @@ export default function AmenitiesSection() {
           >
             AMENITIES
           </h2>
-
-          {/* React Bits Circular Text with Unified Hover Trigger */}
-          <div className="mt-10 sm:mt-12 flex items-center">
+<div className="mt-10 sm:mt-12 flex items-center">
             <a
               href="#enquire"
               aria-label="Enquire Now"
@@ -60,16 +57,12 @@ export default function AmenitiesSection() {
                 hoverTilt={15}
                 className="select-none"
               >
-                {/* Outlined circular button responding to any hover across the circular text */}
-                <div className="relative w-12 h-12 rounded-full border border-white/80 group-hover/circle:border-white bg-transparent overflow-hidden flex items-center justify-center transition-all duration-300 pointer-events-auto shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover/circle:shadow-[0_0_25px_rgba(255,255,255,0.3)]">
-                  {/* Background slide-up fill */}
-                  <span
+<div className="relative w-12 h-12 rounded-full border border-white/80 group-hover/circle:border-white bg-transparent overflow-hidden flex items-center justify-center transition-all duration-300 pointer-events-auto shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover/circle:shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+<span
                     aria-hidden="true"
                     className="absolute inset-0 bg-white translate-y-full group-hover/circle:translate-y-0 transition-transform duration-300 ease-out"
                   />
-
-                  {/* Vertical icon flip */}
-                  <span className="relative z-10 block overflow-hidden w-5 h-5">
+<span className="relative z-10 block overflow-hidden w-5 h-5">
                     <ArrowUpRight className="w-5 h-5 text-white transition-transform duration-300 ease-out group-hover/circle:-translate-y-full" />
                     <ArrowUpRight
                       aria-hidden="true"
@@ -81,9 +74,7 @@ export default function AmenitiesSection() {
             </a>
           </div>
         </div>
-
-        {/* Right Column: Shifted Right with Generous Margin & Top Spacing */}
-        <div className="w-full lg:w-8/12 lg:pl-6 xl:pl-10 pt-12 sm:pt-20 lg:pt-28">
+<div className="w-full lg:w-8/12 lg:pl-6 xl:pl-10 pt-12 sm:pt-20 lg:pt-28">
           <ScrollStack
             useWindowScroll={true}
             itemDistance={140}
@@ -100,19 +91,14 @@ export default function AmenitiesSection() {
                 key={item.id}
                 itemClassName="relative w-full h-[300px] sm:h-[350px] md:h-[380px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] group"
               >
-                {/* Full-bleed Card Image (Wider aspect ratio) */}
-                <img
+<img
                   src={AMENITY_IMAGES[index]}
                   alt={item.title}
                   draggable={false}
                   className="w-full h-full object-cover object-center transform transition-transform duration-1000 group-hover:scale-105"
                 />
-
-                {/* Dark Gradient Overlay for text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
-
-                {/* Content placed INSIDE the image at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10 flex flex-col items-start text-left">
+<div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+<div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-10 flex flex-col items-start text-left">
                   <h3
                     className="text-2xl sm:text-3xl text-white font-normal uppercase tracking-[0.03em] drop-shadow-md leading-tight"
                     style={{ fontFamily: fonts.heading }}

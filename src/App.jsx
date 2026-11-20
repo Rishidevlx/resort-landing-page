@@ -25,32 +25,16 @@ export default function App() {
       <Navbar />
 
       <main>
-        {/* Fullscreen Video Hero Section */}
         <HeroSection />
-
-        {/* About Section with ScrollExpand Animation */}
         <AboutSection />
-
-        {/* Highlights Section (White background with 4-card drag & autoplay carousel) */}
         <HighlightsSection />
-
-        {/* Amenities Section (Primary dark bg with React Bits ScrollStack) */}
         <AmenitiesSection />
-
-        {/* Gallery Section with React Bits CircularGallery WebGL2 Carousel */}
         <GallerySection />
-
-        {/* Gallery Section 2 with React Bits DriftWall 3D Perspective */}
         <GallerySection2 />
-
-        {/* Scroll Velocity Brand Streamer after Gallery 2 */}
         <BrandTickerSection />
-
-        {/* Minimalist White Canvas Contact Form with Smoky Transition */}
         <ContactFormSection />
       </main>
 
-      {/* Black Minimalist Footer */}
       <Footer />
     </div>
   );

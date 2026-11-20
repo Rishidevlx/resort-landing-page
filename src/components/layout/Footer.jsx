@@ -4,8 +4,6 @@ import { themeConfig } from "../../config/themeConfig";
 import BrandLogo from "../common/BrandLogo";
 import CurvedInput from "../common/CurvedInput/CurvedInput";
 import footerBg from "../../assets/Footer-bg.png";
-
-// Lightweight clean social icons
 function WhatsAppIcon({ className = "w-3.5 h-3.5" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -55,7 +53,6 @@ export default function Footer() {
   ];
 
   const handleSubscribe = (email) => {
-    // If empty or invalid, return silently without triggering alert
     if (!email || !email.includes("@")) {
       return;
     }
@@ -72,22 +69,18 @@ export default function Footer() {
       className="relative w-full bg-[#080808] text-[#E9E9E9] border-t border-white/10 select-none overflow-hidden"
       style={{ fontFamily: fonts.body }}
     >
-      {/* Background Image Texture */}
-      <div
+<div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat pointer-events-none opacity-80"
         style={{ backgroundImage: `url(${footerBg})` }}
       />
-      {/* Top Main Section: Contains Vertical Line + Arch Dome + 3-Column Layout */}
-      <div className="relative pt-26 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 overflow-hidden">
-        {/* Mineshot-style Ambient Arch Dome + Center Vertical Line SVG (Desktop only, hidden on mobile) */}
-        <div className="hidden lg:flex absolute inset-0 w-full h-full pointer-events-none justify-center">
+<div className="relative pt-26 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 overflow-hidden">
+<div className="hidden lg:flex absolute inset-0 w-full h-full pointer-events-none justify-center">
           <svg
             viewBox="0 0 1200 520"
             preserveAspectRatio="none"
             className="w-full max-w-[1360px] h-full opacity-60"
           >
-            {/* Center Vertical Line: stops precisely at the arch apex (y=84), zero penetration inside the dome */}
-            <line
+<line
               x1="600"
               y1="0"
               x2="600"
@@ -97,9 +90,7 @@ export default function Footer() {
               strokeOpacity="0.85"
               strokeLinecap="butt"
             />
-
-            {/* Symmetrical Arch Dome: apex at (600, 85), lands at bottom line (230, 520) & (970, 520) */}
-            <path
+<path
               d="M 230 520 A 370 435 0 0 1 970 520"
               fill="none"
               stroke="url(#footerWhiteArchGradient)"
@@ -117,12 +108,9 @@ export default function Footer() {
             </defs>
           </svg>
         </div>
-
-        {/* 3-Column Grid: Left Menu | Center Brand & Input | Right Menu */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 w-full">
+<div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-            {/* Left Menu List (3 cols) */}
-            <div className="lg:col-span-3 order-2 lg:order-1 text-center lg:text-left">
+<div className="lg:col-span-3 order-2 lg:order-1 text-center lg:text-left">
               <ul className="space-y-4 sm:space-y-5">
                 {leftNavLinks.map((item) => (
                   <li key={item.label}>
@@ -137,27 +125,20 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-
-            {/* Center Column: Clean Brand Logo + Newsletter + React Bits CurvedInput (6 cols) */}
-            <div className="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center text-center space-y-6 pt-2 sm:pt-4">
-              {/* Center Brand Identity (Logo Image - Increased Size & No Hover Scale Animation) */}
-              <div className="flex flex-col items-center">
+<div className="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center text-center space-y-6 pt-2 sm:pt-4">
+<div className="flex flex-col items-center">
                 <BrandLogo
                   imgClassName="h-24 sm:h-28 w-auto object-contain drop-shadow-md"
                   hoverEffect={false}
                 />
               </div>
-
-              {/* Newsletter Prompt */}
-              <p
+<p
                 className="text-xs sm:text-sm uppercase tracking-[0.22em] text-white/75 font-medium max-w-md"
                 style={{ fontFamily: fonts.subHeading }}
               >
                 SIGN UP FOR ALL THE LATEST NEWS AND OFFERS
               </p>
-
-              {/* React Bits CurvedInput component (White Theme) */}
-              <div className="w-full max-w-[460px] mx-auto px-2">
+<div className="w-full max-w-[460px] mx-auto px-2">
                 {subscribed ? (
                   <div className="py-3 px-6 rounded-xl bg-white/5 border border-white/40 text-white text-xs tracking-[0.2em] uppercase animate-fade-in">
                     ✓ Thank you. You are now subscribed to our sanctuary dispatches.
@@ -183,9 +164,7 @@ export default function Footer() {
                 )}
               </div>
             </div>
-
-            {/* Right Menu List (3 cols) */}
-            <div className="lg:col-span-3 order-3 text-center lg:text-right">
+<div className="lg:col-span-3 order-3 text-center lg:text-right">
               <ul className="space-y-4 sm:space-y-5">
                 {rightExperiences.map((item) => (
                   <li key={item.label}>
@@ -203,12 +182,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Centered Horizontal Divider Line (70% width, does not touch edges) */}
-      <div className="relative z-10 w-[70%] max-w-5xl mx-auto h-[1px] bg-white/15" />
-
-      {/* Bottom Bar: Copyright + Developer Credits + Exactly 4 Social Icons + Back to Top */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-9 sm:py-10 flex flex-col md:flex-row items-center justify-between text-xs text-white/45 tracking-[0.15em] space-y-4 md:space-y-0">
+<div className="relative z-10 w-[70%] max-w-5xl mx-auto h-[1px] bg-white/15" />
+<div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-9 sm:py-10 flex flex-col md:flex-row items-center justify-between text-xs text-white/45 tracking-[0.15em] space-y-4 md:space-y-0">
         <div className="flex flex-col sm:flex-row items-center space-y-1.5 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
           <p>© {new Date().getFullYear()} Riha Palace Resort & Retreat, All Rights Reserved.</p>
           <span className="hidden sm:inline text-white/20">•</span>
@@ -224,12 +199,9 @@ export default function Footer() {
             </a>
           </p>
         </div>
-
-        {/* 4 Social Icons & Back to Top */}
-        <div className="flex items-center space-x-6 sm:space-x-8">
+<div className="flex items-center space-x-6 sm:space-x-8">
           <div className="flex items-center space-x-3 text-white/60">
-            {/* 1. WhatsApp */}
-            <a
+<a
               href="https://wa.me/9607991234"
               target="_blank"
               rel="noopener noreferrer"
@@ -238,9 +210,7 @@ export default function Footer() {
             >
               <WhatsAppIcon className="w-3.5 h-3.5" />
             </a>
-
-            {/* 2. Instagram */}
-            <a
+<a
               href="#instagram"
               onClick={(e) => e.preventDefault()}
               aria-label="Instagram"
@@ -248,18 +218,14 @@ export default function Footer() {
             >
               <InstagramIcon className="w-3.5 h-3.5" />
             </a>
-
-            {/* 3. Map Location */}
-            <a
+<a
               href="#contact"
               aria-label="Sanctuary Location"
               className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:text-white hover:border-white transition-colors cursor-pointer"
             >
               <MapPin className="w-3.5 h-3.5 text-white/70 hover:text-white" />
             </a>
-
-            {/* 4. LinkedIn */}
-            <a
+<a
               href="#linkedin"
               onClick={(e) => e.preventDefault()}
               aria-label="LinkedIn"

@@ -13,8 +13,6 @@ export default function Button({
 }) {
   const isPrimary = variant === "primary";
   const isDark = variant === "dark" || variant === "outline-dark";
-
-  // Base luxury button styles
   const baseStyles =
     "group relative inline-flex items-center justify-center overflow-hidden uppercase font-medium tracking-[0.2em] transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 select-none";
 
@@ -29,30 +27,23 @@ export default function Button({
   const combinedStyles = `${baseStyles} ${colorStyles} ${paddingStyles} ${
     disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
   } ${className}`;
-
-  // Content with bottom-up fill and vertical text flip animation
   const buttonContent = (
     <>
-      {/* Background fill sliding up from bottom on hover */}
-      <span
+<span
         aria-hidden="true"
         className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out ${
           isDark ? "bg-[#141212]" : "bg-white"
         }`}
       />
-
-      {/* Text flip animation container */}
-      <span className="relative z-10 block overflow-hidden leading-tight">
-        {/* Primary visible text rolling up */}
-        <span
+<span className="relative z-10 block overflow-hidden leading-tight">
+<span
           className={`block transition-transform duration-300 ease-out group-hover:-translate-y-full ${
             isDark ? "text-[#141212]" : "text-white"
           }`}
         >
           {children}
         </span>
-        {/* Incoming duplicate text rolling up from bottom in inverted tone */}
-        <span
+<span
           aria-hidden="true"
           className={`absolute inset-0 block transition-transform duration-300 ease-out translate-y-full group-hover:translate-y-0 ${
             isDark ? "text-white" : "text-[#141212]"

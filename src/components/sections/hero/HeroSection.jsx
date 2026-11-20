@@ -11,11 +11,8 @@ export default function HeroSection() {
   const targetRef = useRef({ x: 0, y: 0 });
   const currentRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef(null);
-
-  // Fast & silky smooth RAF lerp loop
   useEffect(() => {
     const updateMotion = () => {
-      // 0.14 lerp factor provides snappy, immediate response with silky smooth decay
       currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.14;
       currentRef.current.y += (targetRef.current.y - currentRef.current.y) * 0.14;
 
