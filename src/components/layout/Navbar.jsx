@@ -7,13 +7,28 @@ import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { navigation } = themeConfig;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <header className="absolute top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/60 via-black/20 to-transparent py-7 sm:py-9">
+      <header
+        className={`fixed md:absolute top-0 left-0 right-0 z-40 transition-all duration-300 py-4 sm:py-5 md:py-7 lg:py-9 ${
+          isScrolled
+            ? "bg-black/90 backdrop-blur-md border-b border-white/10 md:bg-transparent md:backdrop-blur-none md:border-b-0"
+            : "bg-gradient-to-b from-black/60 via-black/20 to-transparent"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between">
-          <BrandLogo imgClassName="h-14 sm:h-16 lg:h-18 w-auto object-contain" />
+          <BrandLogo imgClassName="h-12 sm:h-14 md:h-14 lg:h-18 w-auto object-contain" />
 
           <nav
             className="hidden md:flex items-center space-x-8 lg:space-x-11"

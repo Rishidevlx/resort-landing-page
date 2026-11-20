@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { themeConfig } from "../../../config/themeConfig";
 import HighlightCard from "./HighlightCard";
 
@@ -101,6 +102,16 @@ export default function HighlightsSection() {
 
   const activeIndex = virtualIndex % totalCards;
 
+  const handlePrev = () => {
+    setIsTransitioning(true);
+    setVirtualIndex((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    setIsTransitioning(true);
+    setVirtualIndex((prev) => prev + 1);
+  };
+
   return (
     <section
       id="highlights"
@@ -145,35 +156,54 @@ export default function HighlightsSection() {
       <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-r from-white via-white/40 to-transparent" />
       <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-l from-white via-white/40 to-transparent" />
 
-      <div
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-        className="relative w-full overflow-visible py-4 touch-pan-y cursor-grab active:cursor-grabbing"
-      >
-        <div
-          onTransitionEnd={handleTransitionEnd}
-          className="flex items-center"
-          style={{
-            transform: `translateX(calc(50% - ${(virtualIndex + 0.5) * cardWidth + virtualIndex * gap}px + ${dragOffset}px))`,
-            transition: isDragging
-              ? "none"
-              : isTransitioning
-              ? "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)"
-              : "none",
-            gap: `${gap}px`,
-            willChange: "transform",
-          }}
+      {/* Slider Carousel & 100px Margin Rounded Arrow Buttons (Desktop/System View Only) */}
+      <div className="relative w-full">
+        <button
+          onClick={handlePrev}
+          aria-label="Previous highlight"
+          className="hidden md:flex absolute left-6 lg:left-[100px] top-1/2 -translate-y-1/2 z-40 w-12 h-12 lg:w-13 lg:h-13 rounded-full border border-[#141212] bg-white/85 hover:bg-[#141212] text-[#141212] hover:text-white items-center justify-center transition-all duration-300 shadow-sm hover:shadow-lg cursor-pointer group backdrop-blur-sm"
         >
-          {allCards.map((card, idx) => (
-            <HighlightCard
-              key={`${card.id}-${idx}`}
-              card={card}
-              image={allImages[idx]}
-              isActive={idx === virtualIndex}
-            />
-          ))}
+          <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5" strokeWidth={1.8} />
+        </button>
+
+        <button
+          onClick={handleNext}
+          aria-label="Next highlight"
+          className="hidden md:flex absolute right-6 lg:right-[100px] top-1/2 -translate-y-1/2 z-40 w-12 h-12 lg:w-13 lg:h-13 rounded-full border border-[#141212] bg-white/85 hover:bg-[#141212] text-[#141212] hover:text-white items-center justify-center transition-all duration-300 shadow-sm hover:shadow-lg cursor-pointer group backdrop-blur-sm"
+        >
+          <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={1.8} />
+        </button>
+
+        <div
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          className="relative w-full overflow-visible py-4 touch-pan-y cursor-grab active:cursor-grabbing"
+        >
+          <div
+            onTransitionEnd={handleTransitionEnd}
+            className="flex items-center"
+            style={{
+              transform: `translateX(calc(50% - ${(virtualIndex + 0.5) * cardWidth + virtualIndex * gap}px + ${dragOffset}px))`,
+              transition: isDragging
+                ? "none"
+                : isTransitioning
+                ? "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)"
+                : "none",
+              gap: `${gap}px`,
+              willChange: "transform",
+            }}
+          >
+            {allCards.map((card, idx) => (
+              <HighlightCard
+                key={`${card.id}-${idx}`}
+                card={card}
+                image={allImages[idx]}
+                isActive={idx === virtualIndex}
+              />
+            ))}
+          </div>
         </div>
       </div>
 <div className="mt-10 sm:mt-12 flex justify-center items-center space-x-2.5 z-30 relative">

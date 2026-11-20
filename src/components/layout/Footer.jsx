@@ -195,7 +195,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-white/80 hover:text-white underline underline-offset-4 transition-colors font-medium inline-block"
             >
-              @meow
+              @ME
             </a>
           </p>
         </div>
