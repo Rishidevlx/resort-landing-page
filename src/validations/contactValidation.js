@@ -1,5 +1,3 @@
-
-
 export const VALIDATION_LIMITS = {
   NAME_MAX: 50,
   EMAIL_MAX: 50,
@@ -11,9 +9,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PHONE_FIRST_DIGIT_REGEX = /^[6-9]/;
 const PHONE_STRICT_10_DIGIT_REGEX = /^[6-9]\d{9}$/;
 
-/**
- * Format phone number by stripping non-numeric characters and capping at 10 digits
- */
+
 export function formatPhoneNumber(value = "") {
   return value.replace(/\D/g, "").slice(0, VALIDATION_LIMITS.PHONE_DIGITS);
 }

@@ -207,10 +207,23 @@ export default function Footer() {
       {/* Centered Horizontal Divider Line (70% width, does not touch edges) */}
       <div className="relative z-10 w-[70%] max-w-5xl mx-auto h-[1px] bg-white/15" />
 
-      {/* Bottom Bar: Copyright + Exactly 4 Social Icons (WhatsApp, Insta, Map, LinkedIn) + Back to Top */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-9 sm:py-10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/45 tracking-[0.15em] space-y-4 sm:space-y-0">
-        {/* Copyright */}
-        <p>© {new Date().getFullYear()} Riha Palace Resort & Retreat, All Rights Reserved.</p>
+      {/* Bottom Bar: Copyright + Developer Credits + Exactly 4 Social Icons + Back to Top */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-9 sm:py-10 flex flex-col md:flex-row items-center justify-between text-xs text-white/45 tracking-[0.15em] space-y-4 md:space-y-0">
+        <div className="flex flex-col sm:flex-row items-center space-y-1.5 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+          <p>© {new Date().getFullYear()} Riha Palace Resort & Retreat, All Rights Reserved.</p>
+          <span className="hidden sm:inline text-white/20">•</span>
+          <p>
+            Designed and Developed by{" "}
+            <a
+              href="https://www.linkedin.com/in/poosha-balakrishnan/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/80 hover:text-white underline underline-offset-4 transition-colors font-medium inline-block"
+            >
+              @meow
+            </a>
+          </p>
+        </div>
 
         {/* 4 Social Icons & Back to Top */}
         <div className="flex items-center space-x-6 sm:space-x-8">
