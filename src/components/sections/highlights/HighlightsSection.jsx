@@ -113,9 +113,9 @@ export default function HighlightsSection() {
           setDragOffset(0);
         }
       }}
-      className="relative w-full py-24 sm:py-28 bg-white overflow-hidden select-none cursor-grab active:cursor-grabbing"
+      className="relative w-full py-24 sm:py-28 bg-white overflow-hidden select-none"
     >
-<div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-6 mb-12 sm:mb-16">
+      <div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-6 mb-12 sm:mb-16">
         <div className="inline-flex items-center space-x-3 mb-4">
           <span className="w-8 h-[1px] bg-[#141212]/30" />
           <span
@@ -141,14 +141,16 @@ export default function HighlightsSection() {
           {highlights.subHeading}
         </p>
       </div>
-<div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-r from-white via-white/40 to-transparent" />
+
+      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-r from-white via-white/40 to-transparent" />
       <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 md:w-36 lg:w-48 z-30 pointer-events-none bg-gradient-to-l from-white via-white/40 to-transparent" />
-<div
+
+      <div
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="relative w-full overflow-visible py-4 touch-pan-y"
+        className="relative w-full overflow-visible py-4 touch-pan-y cursor-grab active:cursor-grabbing"
       >
         <div
           onTransitionEnd={handleTransitionEnd}

@@ -1,4 +1,5 @@
 import React from "react";
+import CustomCursor from "./components/common/CustomCursor";
 import Navbar from "./components/layout/Navbar";
 import HeroSection from "./components/sections/hero/HeroSection";
 import AboutSection from "./components/sections/about/AboutSection";
@@ -22,6 +23,7 @@ export default function App() {
         fontFamily: fonts.body,
       }}
     >
+      <CustomCursor />
       <Navbar />
 
       <main>

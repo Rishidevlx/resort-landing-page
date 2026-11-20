@@ -201,38 +201,30 @@ export default function Footer() {
         </div>
 <div className="flex items-center space-x-6 sm:space-x-8">
           <div className="flex items-center space-x-3 text-white/60">
-<a
-              href="https://wa.me/9607991234"
-              target="_blank"
-              rel="noopener noreferrer"
+            <span
               aria-label="WhatsApp Concierge"
-              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:text-white hover:border-white transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-colors"
             >
               <WhatsAppIcon className="w-3.5 h-3.5" />
-            </a>
-<a
-              href="#instagram"
-              onClick={(e) => e.preventDefault()}
+            </span>
+            <span
               aria-label="Instagram"
-              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:text-white hover:border-white transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-colors"
             >
               <InstagramIcon className="w-3.5 h-3.5" />
-            </a>
-<a
-              href="#contact"
+            </span>
+            <span
               aria-label="Sanctuary Location"
-              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:text-white hover:border-white transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-colors"
             >
               <MapPin className="w-3.5 h-3.5 text-white/70 hover:text-white" />
-            </a>
-<a
-              href="#linkedin"
-              onClick={(e) => e.preventDefault()}
+            </span>
+            <span
               aria-label="LinkedIn"
-              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center hover:text-white hover:border-white transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-colors"
             >
               <LinkedInIcon className="w-3.5 h-3.5" />
-            </a>
+            </span>
           </div>
 
           <button
