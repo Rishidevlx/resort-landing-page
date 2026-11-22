@@ -92,7 +92,7 @@ export const themeConfig = {
     badge: "RIHA PALACE EXPERIENCES",
     heading: "Our Sanctuary Highlights",
     subHeading: "WHERE ARCHITECTURAL MASTERY MEETS NATURAL WONDER",
-    autoplayInterval: 2000,
+    autoplayInterval: 3000,
     cards: [
       {
         id: 1,

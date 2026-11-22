@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { themeConfig } from "../../../config/themeConfig";
 import HighlightCard from "./HighlightCard";
@@ -14,21 +14,35 @@ export default function HighlightsSection() {
   const { highlights, fonts } = themeConfig;
   const cards = highlights.cards;
   const totalCards = cards.length;
-  const allCards = [...cards, ...cards, ...cards];
-  const allImages = [...CARD_IMAGES, ...CARD_IMAGES, ...CARD_IMAGES];
-  const [virtualIndex, setVirtualIndex] = useState(totalCards);
-  const [isTransitioning, setIsTransitioning] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStartX = useRef(0);
-  const containerRef = useRef(null);
+
+  // 6 repeated sets for truly infinite, uninterrupted gliding
+  const REPEAT_COUNT = 6;
+  const allCards = Array(REPEAT_COUNT).fill(cards).flat();
+  const allImages = Array(REPEAT_COUNT).fill(CARD_IMAGES).flat();
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeCenteredIndex, setActiveCenteredIndex] = useState(totalCards * 3);
+  const [isHoveringCards, setIsHoveringCards] = useState(false);
   const [cardWidth, setCardWidth] = useState(580);
   const gap = 28;
 
+  const trackRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Physics animation refs
+  const currentXRef = useRef(0);
+  const targetXRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragStartTargetXRef = useRef(0);
+  const rafIdRef = useRef(null);
+  const containerWidthRef = useRef(typeof window !== "undefined" ? window.innerWidth : 1200);
+
+  // Calculate cardWidth responsively
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
+      containerWidthRef.current = w;
       if (w < 640) {
         setCardWidth(Math.min(w * 0.82, 340));
       } else if (w < 768) {
@@ -44,86 +58,136 @@ export default function HighlightsSection() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const cardStep = cardWidth + gap;
+  const loopWidth = totalCards * cardStep;
+
+  // Initialize position in middle set (Set 2)
   useEffect(() => {
-    if (isPaused || isDragging) return;
+    const initialPos = -loopWidth * 2;
+    currentXRef.current = initialPos;
+    targetXRef.current = initialPos;
+  }, [cardStep, loopWidth]);
+
+  // Butter-smooth 60/120fps RAF lerp animation loop
+  useEffect(() => {
+    let lastActiveCard = -1;
+
+    const render = () => {
+      if (!trackRef.current) {
+        rafIdRef.current = requestAnimationFrame(render);
+        return;
+      }
+
+      // Smooth organic lerp damping: 0.048 gives that majestic, slow, serene luxury glide
+      if (!isDraggingRef.current) {
+        currentXRef.current += (targetXRef.current - currentXRef.current) * 0.048;
+      }
+
+      // Seamless infinite looping wrap: when gliding past threshold, shift by exact loopWidth * 2
+      if (targetXRef.current < -loopWidth * 4) {
+        targetXRef.current += loopWidth * 2;
+        currentXRef.current += loopWidth * 2;
+      } else if (targetXRef.current > -loopWidth * 1.5) {
+        targetXRef.current -= loopWidth * 2;
+        currentXRef.current -= loopWidth * 2;
+      }
+
+      // Dead center screen offset
+      const centerOffset = (containerWidthRef.current - cardWidth) / 2;
+      const finalTranslateX = centerOffset + currentXRef.current;
+
+      trackRef.current.style.transform = `translate3d(${finalTranslateX.toFixed(2)}px, 0, 0)`;
+
+      // Determine currently centered card
+      const centeredIdx = Math.round(-currentXRef.current / cardStep);
+      const normalized = ((-currentXRef.current % loopWidth) + loopWidth) % loopWidth;
+      const currentCard = Math.round(normalized / cardStep) % totalCards;
+
+      if (currentCard !== lastActiveCard) {
+        lastActiveCard = currentCard;
+        setActiveIndex(currentCard);
+        setActiveCenteredIndex(centeredIdx);
+      }
+
+      rafIdRef.current = requestAnimationFrame(render);
+    };
+
+    rafIdRef.current = requestAnimationFrame(render);
+    return () => {
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+    };
+  }, [cardStep, loopWidth, cardWidth, totalCards]);
+
+  // Auto-scroll every 3 seconds: runs continuously; pauses ONLY when mouse hovers directly over the cards
+  useEffect(() => {
+    if (isHoveringCards) return;
 
     const timer = setInterval(() => {
-      setIsTransitioning(true);
-      setVirtualIndex((prev) => prev + 1);
-    }, highlights.autoplayInterval || 2000);
+      if (!isDraggingRef.current) {
+        targetXRef.current -= cardStep;
+      }
+    }, 3000);
 
     return () => clearInterval(timer);
-  }, [isPaused, isDragging, highlights.autoplayInterval]);
-  const handleTransitionEnd = () => {
-    if (virtualIndex >= totalCards * 2) {
-      setIsTransitioning(false);
-      setVirtualIndex(virtualIndex - totalCards);
-    } else if (virtualIndex < totalCards) {
-      setIsTransitioning(false);
-      setVirtualIndex(virtualIndex + totalCards);
-    }
-  };
+  }, [isHoveringCards, cardStep]);
 
-  useEffect(() => {
-    if (!isTransitioning) {
-      const id = requestAnimationFrame(() => {
-        setIsTransitioning(true);
-      });
-      return () => cancelAnimationFrame(id);
-    }
-  }, [isTransitioning]);
+  // Navigation handlers
+  const handlePrev = useCallback(() => {
+    targetXRef.current += cardStep;
+  }, [cardStep]);
+
+  const handleNext = useCallback(() => {
+    targetXRef.current -= cardStep;
+  }, [cardStep]);
+
+  const handleDotClick = useCallback(
+    (targetDot) => {
+      const normalized = ((-targetXRef.current % loopWidth) + loopWidth) % loopWidth;
+      const currentActive = Math.round(normalized / cardStep) % totalCards;
+      let diff = targetDot - currentActive;
+      if (diff > totalCards / 2) diff -= totalCards;
+      if (diff < -totalCards / 2) diff += totalCards;
+      targetXRef.current -= diff * cardStep;
+    },
+    [cardStep, loopWidth, totalCards]
+  );
+
+  // Pointer drag gestures
   const handlePointerDown = (e) => {
-    setIsDragging(true);
-    dragStartX.current = e.clientX;
-    setDragOffset(0);
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragStartTargetXRef.current = targetXRef.current;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // Fallback
+    }
   };
 
   const handlePointerMove = (e) => {
-    if (!isDragging) return;
-    const delta = e.clientX - dragStartX.current;
-    setDragOffset(delta);
+    if (!isDraggingRef.current) return;
+    const delta = e.clientX - dragStartXRef.current;
+    targetXRef.current = dragStartTargetXRef.current + delta;
+    currentXRef.current = dragStartTargetXRef.current + delta;
   };
 
-  const handlePointerUp = () => {
-    if (!isDragging) return;
-    const threshold = 45;
-
-    if (dragOffset < -threshold) {
-      setIsTransitioning(true);
-      setVirtualIndex((prev) => prev + 1);
-    } else if (dragOffset > threshold) {
-      setIsTransitioning(true);
-      setVirtualIndex((prev) => prev - 1);
+  const handlePointerUp = (e) => {
+    if (!isDraggingRef.current) return;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      // Fallback
     }
-
-    setIsDragging(false);
-    setDragOffset(0);
-  };
-
-  const activeIndex = virtualIndex % totalCards;
-
-  const handlePrev = () => {
-    setIsTransitioning(true);
-    setVirtualIndex((prev) => prev - 1);
-  };
-
-  const handleNext = () => {
-    setIsTransitioning(true);
-    setVirtualIndex((prev) => prev + 1);
+    isDraggingRef.current = false;
+    // Snap cleanly to nearest card
+    targetXRef.current = Math.round(targetXRef.current / cardStep) * cardStep;
   };
 
   return (
     <section
       id="highlights"
       ref={containerRef}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => {
-        setIsPaused(false);
-        if (isDragging) {
-          setIsDragging(false);
-          setDragOffset(0);
-        }
-      }}
       className="relative w-full py-24 sm:py-28 bg-white overflow-hidden select-none"
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-6 mb-12 sm:mb-16">
@@ -174,7 +238,16 @@ export default function HighlightsSection() {
           <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={1.8} />
         </button>
 
+        {/* Carousel Track: Auto-scroll pauses ONLY when hovering directly on cards */}
         <div
+          onMouseEnter={() => setIsHoveringCards(true)}
+          onMouseLeave={() => {
+            setIsHoveringCards(false);
+            if (isDraggingRef.current) {
+              isDraggingRef.current = false;
+              targetXRef.current = Math.round(targetXRef.current / cardStep) * cardStep;
+            }
+          }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -182,39 +255,35 @@ export default function HighlightsSection() {
           className="relative w-full overflow-visible py-4 touch-pan-y cursor-grab active:cursor-grabbing"
         >
           <div
-            onTransitionEnd={handleTransitionEnd}
+            ref={trackRef}
             className="flex items-center"
             style={{
-              transform: `translateX(calc(50% - ${(virtualIndex + 0.5) * cardWidth + virtualIndex * gap}px + ${dragOffset}px))`,
-              transition: isDragging
-                ? "none"
-                : isTransitioning
-                ? "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)"
-                : "none",
               gap: `${gap}px`,
               willChange: "transform",
             }}
           >
-            {allCards.map((card, idx) => (
-              <HighlightCard
-                key={`${card.id}-${idx}`}
-                card={card}
-                image={allImages[idx]}
-                isActive={idx === virtualIndex}
-              />
-            ))}
+            {allCards.map((card, idx) => {
+              const isCardActive = idx === activeCenteredIndex;
+
+              return (
+                <HighlightCard
+                  key={`${card.id}-${idx}`}
+                  card={card}
+                  image={allImages[idx]}
+                  isActive={isCardActive}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
-<div className="mt-10 sm:mt-12 flex justify-center items-center space-x-2.5 z-30 relative">
+
+      <div className="mt-10 sm:mt-12 flex justify-center items-center space-x-2.5 z-30 relative">
         {cards.map((_, idx) => (
           <button
             key={idx}
-            onClick={() => {
-              setIsTransitioning(true);
-              setVirtualIndex(totalCards + idx);
-            }}
-            className={`transition-all duration-300 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#141212] ${
+            onClick={() => handleDotClick(idx)}
+            className={`transition-all duration-300 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#141212] cursor-pointer ${
               activeIndex === idx
                 ? "w-8 h-1.5 bg-[#141212]"
                 : "w-1.5 h-1.5 bg-[#141212]/20 hover:bg-[#141212]/40"

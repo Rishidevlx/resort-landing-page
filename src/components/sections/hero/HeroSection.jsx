@@ -11,6 +11,7 @@ export default function HeroSection() {
   const targetRef = useRef({ x: 0, y: 0 });
   const currentRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef(null);
+
   useEffect(() => {
     const updateMotion = () => {
       currentRef.current.x += (targetRef.current.x - currentRef.current.x) * 0.14;
@@ -70,45 +71,47 @@ export default function HeroSection() {
           willChange: "transform",
         }}
       >
-        <div className="inline-flex items-center space-x-3 mb-6 sm:mb-8">
-          <span className="w-6 sm:w-10 h-[1px] bg-white/40" />
-          <span
-            className="text-[11px] sm:text-[13px] tracking-[0.35em] text-white/90 uppercase font-medium"
-            style={{ fontFamily: fonts.subHeading }}
-          >
-            {hero.welcomeBadge}
-          </span>
-          <span className="w-6 sm:w-10 h-[1px] bg-white/40" />
-        </div>
-
-        <h1
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[88px] font-normal text-white uppercase leading-[0.98] tracking-[0.02em] max-w-4xl"
-          style={{ fontFamily: fonts.heading }}
-        >
-          {hero.headlineLines.map((line, idx) => (
-            <span key={idx} className="block">
-              {line}
+        <div className="flex flex-col items-center">
+          <div className="inline-flex items-center space-x-3 mb-6 sm:mb-8">
+            <span className="w-6 sm:w-10 h-[1px] bg-white/40" />
+            <span
+              className="text-[11px] sm:text-[13px] tracking-[0.35em] text-white/90 uppercase font-medium"
+              style={{ fontFamily: fonts.subHeading }}
+            >
+              {hero.welcomeBadge}
             </span>
-          ))}
-        </h1>
+            <span className="w-6 sm:w-10 h-[1px] bg-white/40" />
+          </div>
 
-        <div className="mt-8 sm:mt-10 flex flex-col items-center">
-          <p
-            className="text-sm sm:text-base md:text-lg tracking-[0.38em] uppercase text-white/90 font-medium"
-            style={{ fontFamily: fonts.subHeading }}
+          <h1
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[88px] font-normal text-white uppercase leading-[0.98] tracking-[0.02em] max-w-4xl"
+            style={{ fontFamily: fonts.heading }}
           >
-            {hero.subHeadline}
-          </p>
-          <p
-            className="mt-2 text-xs sm:text-[13px] tracking-[0.25em] text-white/60 uppercase"
-            style={{ fontFamily: fonts.body }}
-          >
-            {hero.tagline}
-          </p>
+            {hero.headlineLines.map((line, idx) => (
+              <span key={idx} className="block">
+                {line}
+              </span>
+            ))}
+          </h1>
+
+          <div className="mt-8 sm:mt-10 flex flex-col items-center">
+            <p
+              className="text-sm sm:text-base md:text-lg tracking-[0.38em] uppercase text-white/90 font-medium"
+              style={{ fontFamily: fonts.subHeading }}
+            >
+              {hero.subHeadline}
+            </p>
+            <p
+              className="mt-2 text-xs sm:text-[13px] tracking-[0.25em] text-white/60 uppercase"
+              style={{ fontFamily: fonts.body }}
+            >
+              {hero.tagline}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-white/50 hover:text-white transition-colors duration-300">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-white/50 hover:text-white transition-opacity">
         <a
           href="#about"
           aria-label="Scroll down to About Section"
