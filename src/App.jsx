@@ -1,4 +1,5 @@
 import React from "react";
+import Preloader from "./components/common/Preloader";
 import CustomCursor from "./components/common/CustomCursor";
 import Navbar from "./components/layout/Navbar";
 import HeroSection from "./components/sections/hero/HeroSection";
@@ -23,6 +24,7 @@ export default function App() {
         fontFamily: fonts.body,
       }}
     >
+      <Preloader />
       <CustomCursor />
       <Navbar />
 
